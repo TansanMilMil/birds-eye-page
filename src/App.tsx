@@ -1,56 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { BirdsEyeApi } from './api/birds-eye-api';
 import './App.css';
+import { Article } from './Article';
+import { News } from './types/news';
 
-function App() {
+export function App() {
+  const [newsList, setNewsList] = useState<News[]>([]);
+
+  useEffect(() => {
+    if (newsList.length === 0) {
+      BirdsEyeApi.getTodayNews()
+        .then(newsList => {
+          let allNews: News[] = [];
+          newsList.data.forEach(group => {
+            allNews = allNews.concat(group.news);
+          });
+          setNewsList(allNews);
+        });
+    }
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <h1>Birds Eye</h1>
+      <Container>
+        <Row>
+          {newsList.map(news => 
+            <Col xs={12} lg={6} xl={4} className="mb-3">
+              <Article 
+                id={news.id} 
+                title={news.title} 
+                description={news.description} 
+                sourceBy={news.sourceBy} 
+                scrapedUrl={news.scrapedUrl} 
+                scrapedDateTime={news.scrapedDateTime} 
+                articleUrl={news.articleUrl}></Article>
+            </Col>
+          )}
+        </Row>        
+      </Container>
     </div>
   );
 }

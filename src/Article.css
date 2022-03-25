@@ -1,0 +1,36 @@
+article {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem rgb(62 39 35 / 50%);
+    height: 100%;
+}
+
+a {
+    color: #3e2723;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #a54c3c;
+}
+
+.scrapedDateTime {
+    color: #d2ae0d;
+    font-size: 0.7rem;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 0.8rem;
+    color: #939393;
+}
+
+.articleUrl > a {
+    font-size: 0.7rem;
+    color: #d2ae0d;
+}
