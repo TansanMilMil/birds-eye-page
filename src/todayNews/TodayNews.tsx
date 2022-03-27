@@ -45,9 +45,10 @@ export function TodayNews() {
               </Box>
           }
           { !isLoading && 
-          <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 1, sm: 2, md: 3 }}>
-              {newsList.map(news => 
-              <Article 
+            <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
+              {newsList.map((news, i) => 
+                <Article 
+                  key={i}
                   id={news.id} 
                   title={news.title} 
                   description={news.description} 
@@ -57,7 +58,7 @@ export function TodayNews() {
                   articleUrl={news.articleUrl}
                   articleImageUrl={news.articleImageUrl}></Article>
               )}
-          </Masonry>
+            </Masonry>
           }
         </div>
     );

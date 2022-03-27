@@ -5,6 +5,7 @@ import title from './images/title.png';
 import { useState } from 'react';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import { Trends } from './trends/Trends';
 
 export function App() {
   const [navSelectedIndex, setNavSelectedIndex] = useState(0);
@@ -22,7 +23,7 @@ export function App() {
       }
       { navSelectedIndex === 1 && 
         <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div>chart!</div>
+          <Trends></Trends>
         </Box>
       }
 
