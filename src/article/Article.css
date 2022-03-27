@@ -1,8 +1,10 @@
 article {
     background-color: #f5f5f5;
-    padding: 1rem;
-    border-radius: 0.8rem;
-    box-shadow: 0.2rem 0.2rem 0.5rem rgb(62 39 35 / 20%);
+    padding: 1.5rem;
+    border-radius: 3.8rem;
+    border-style: dashed;
+    border-color: #a7a750;
+    border-width: 1px;
 }
 
 a {
@@ -15,16 +17,17 @@ a:hover {
 }
 
 a:visited {
-    color: #818181;
+    color: #ababab;
 }
 
 .scrapedDateTime {
     color: #d2ae0d;
     font-size: 0.9rem;
+    margin: 0.3rem 0;
 }
 
 .title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     margin: 0.3rem 0;
 }
@@ -37,4 +40,16 @@ a:visited {
 .articleUrl > a {
     font-size: 0.7rem;
     color: #d2ae0d;
+}
+
+.image {
+    height: 10rem;
+    margin: 0.4rem 0;
+}
+
+.image > img {
+    object-fit: cover;
+    height: 10rem;
+    width: 100%;
+    border-radius: 0.3rem;
 }

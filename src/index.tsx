@@ -6,11 +6,11 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { cyan, lime } from '@mui/material/colors';
+import { cyan, lime, teal, yellow } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
-    primary: lime,
-    secondary: cyan,
+    primary: teal,
+    secondary: yellow,
   },
 });
 

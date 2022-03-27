@@ -1,4 +1,4 @@
-import { News } from "./types/news";
+import { News } from "../types/news";
 import './Article.css';
 import { Chip } from "@mui/material";
 
@@ -10,10 +10,17 @@ export function Article (props: News) {
 
     return (
         <article>
-            <div className="scrapedDateTime">{props.scrapedDateTime}</div>
+            { props.articleImageUrl && 
+                <a href={props.articleUrl}>
+                    <div className="image">
+                        <img src={props.articleImageUrl} alt="" />
+                    </div>
+                </a>
+            }
             <div className="title">
                 <a href={props.articleUrl}>{props.title}</a>
-            </div>
+            </div>            
+            <div className="scrapedDateTime">{props.scrapedDateTime}</div>
             <Chip label={props.sourceBy} size="small" onClick={clickSourceBy} />
         </article>
     );
