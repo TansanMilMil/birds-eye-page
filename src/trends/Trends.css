@@ -40,7 +40,3 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-
-rect.highcharts-background {
-    fill: rgba(255, 255, 255, 0.8);
-}

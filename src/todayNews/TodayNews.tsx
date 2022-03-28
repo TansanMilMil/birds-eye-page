@@ -29,7 +29,7 @@ export function TodayNews() {
             setHasError(true);
           });
       }
-    }, [newsList.length]);
+    }, []);
   
     return (
         <div>

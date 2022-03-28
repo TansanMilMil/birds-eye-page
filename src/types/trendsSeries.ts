@@ -1,6 +1,7 @@
 import { TrendData } from "./trendData";
 
 export type TrendSeries = {
-    name: string;
+    type: string;
     data: TrendData[];
+    name: string;
 }

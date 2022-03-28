@@ -35,7 +35,7 @@ export function App() {
         }}
         sx={{ position: 'fixed', bottom: '0', left: '0', width: '100%' }}
       >
-        <BottomNavigationAction label="TodayNews" icon={<NewspaperIcon />} />
+        <BottomNavigationAction label="News" icon={<NewspaperIcon />} />
         <BottomNavigationAction label="Trends" icon={<BubbleChartIcon />} />
       </BottomNavigation>      
     </div>
