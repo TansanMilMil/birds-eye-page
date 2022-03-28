@@ -1,15 +1,14 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { TrendsApi } from "../api/trends-api";
 import { Error } from '@mui/icons-material';
 import { TrendSeries } from "../types/trendsSeries";
 import './Trends.css';
 import { TrendData } from "../types/trendData";
 import { BirdsEyeApi } from "../api/birds-eye-api";
 import { News } from "../types/news";
-import { Article } from "../article/Article";
+import { MainArticle } from "../article/MainArticle";
 import { Masonry } from "@mui/lab";
-import { reverse } from "dns";
+import styled from 'styled-components';
 declare var Highcharts: any;
 
 export function Trends() {
@@ -93,9 +92,9 @@ export function Trends() {
                 </Box>
                 <Masonry columns={{ xs: 2, sm: 3, md: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
                     {newsList.map((news, i) => 
-                        <Article 
+                        <MainArticle 
                         key={i}
-                        news={news}></Article>
+                        news={news}></MainArticle>
                     )}                
                 </Masonry>
             </Box>

@@ -1,7 +1,7 @@
-import { Box, CircularProgress, Grid } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import { Masonry } from '@mui/lab';
 import { Error } from '@mui/icons-material';
-import { Article } from '../article/Article';
+import { MainArticle } from '../article/MainArticle';
 import { News } from '../types/news';
 import { useEffect, useState } from 'react';
 import { BirdsEyeApi } from '../api/birds-eye-api';
@@ -48,9 +48,9 @@ export function TodayNews() {
             { !isLoading && 
               <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
                 {newsList.map((news, i) => 
-                  <Article 
+                  <MainArticle 
                     key={i}
-                    news={news}></Article>
+                    news={news}></MainArticle>
                 )}
               </Masonry>
             }

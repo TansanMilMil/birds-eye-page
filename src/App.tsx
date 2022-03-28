@@ -1,13 +1,13 @@
-import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
-import './App.css';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import { TodayNews } from './todayNews/TodayNews';
 import title from './images/title.png';
 import { useEffect, useState } from 'react';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import { Trends } from './trends/Trends';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 export function App() {
   const navigate = useNavigate();
@@ -21,10 +21,10 @@ export function App() {
   }, []);
 
   return (
-    <div className="app">
-      <h1>
+    <AppBase>
+      <Title>
         <img src={title} alt="title" />
-      </h1>
+      </Title>
 
       <Routes>
         <Route path="/news" element={<TodayNews></TodayNews>} />
@@ -42,8 +42,18 @@ export function App() {
         <BottomNavigationAction label="News" icon={<NewspaperIcon />} value="/news" />
         <BottomNavigationAction label="Trends" icon={<BubbleChartIcon />} value="/trends" />
       </BottomNavigation>      
-    </div>
+    </AppBase>
   );
 }
 
-export default App;
+const AppBase = styled.div`
+  padding-bottom: 5rem;
+`;
+
+const Title = styled.h1`
+  font-family: 'Tempus Sans ITC';
+  color: #e7e7e7;
+  text-align: center;
+  font-weight: normal;
+  margin: 0;
+`;
