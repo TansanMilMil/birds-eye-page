@@ -8,7 +8,7 @@ import { TrendData } from "../types/trendData";
 declare var Highcharts: any;
 
 export function Trends() {
-    const KEYWORDS = ['news', 'cnn'];
+    const KEYWORDS = ['news', 'cnn', 'trends'];
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasError, setHasError] = useState<boolean>(false);
 
@@ -34,18 +34,22 @@ export function Trends() {
             name: 'trends',
             data: [],
         }];
-        for (let keyword of keywords) {
-            const res = await TrendsApi.getTrends(keyword);
-            let result: any[] = res.data.result;
-            let trend: TrendData[] = result.map(trend => {
-                return {
-                    name: trend.name,
-                    weight: Math.floor(Math.random() * 5) + 1,
-                };
-            })
-            series[0].data = series[0].data.concat(trend);
-        }
+        const results = await Promise.all(keywords.map(keyword => getTrends(keyword)));
+        series[0].data = results.flat(1);
+
         return series;
+    }
+
+    async function getTrends(keyword: string): Promise<TrendData[]> {
+        const res = await TrendsApi.getTrends(keyword);
+        let result: any[] = res.data.result;
+        let trend: TrendData[] = result.map(trend => {
+            return {
+                name: trend.name,
+                weight: Math.floor(Math.random() * 5) + 1,
+            };
+        })
+        return trend;
     }
 
     function renderCharts(series: TrendSeries[]) {
