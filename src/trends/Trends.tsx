@@ -9,6 +9,7 @@ import { BirdsEyeApi } from "../api/birds-eye-api";
 import { News } from "../types/news";
 import { Article } from "../article/Article";
 import { Masonry } from "@mui/lab";
+import { reverse } from "dns";
 declare var Highcharts: any;
 
 export function Trends() {
@@ -36,6 +37,7 @@ export function Trends() {
 
     function generateSeriesAsync(newsList: News[]): TrendSeries[] {
         const newsListReversed: News[] = JSON.parse(JSON.stringify(newsList));
+        newsListReversed.reverse();
         let series: TrendSeries[] = [{
             type: 'wordcloud',
             name: 'trends',
