@@ -33,26 +33,28 @@ export function TodayNews() {
   
     return (
         <div>
-          { hasError &&
-            <Box sx={{ textAlign: 'center', color: 'error.dark' }}>
-              <Error fontSize="large" />
-              <div>network error...</div>
-            </Box>
-          }
-          { isLoading && 
-              <Box sx={{ textAlign: 'center', margin: '3rem' }}>
-              <CircularProgress color="secondary" />
+          <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+            { hasError &&
+              <Box sx={{ textAlign: 'center', color: 'error.dark' }}>
+                <Error fontSize="large" />
+                <div>network error...</div>
               </Box>
-          }
-          { !isLoading && 
-            <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
-              {newsList.map((news, i) => 
-                <Article 
-                  key={i}
-                  news={news}></Article>
-              )}
-            </Masonry>
-          }
+            }
+            { isLoading && 
+                <Box sx={{ textAlign: 'center', margin: '3rem' }}>
+                <CircularProgress color="secondary" />
+                </Box>
+            }
+            { !isLoading && 
+              <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
+                {newsList.map((news, i) => 
+                  <Article 
+                    key={i}
+                    news={news}></Article>
+                )}
+              </Masonry>
+            }
+          </Box>
         </div>
     );
 }

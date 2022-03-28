@@ -71,30 +71,32 @@ export function Trends() {
     
     return (
         <div>
-            { hasError &&
-                <Box sx={{ textAlign: 'center', color: 'error.dark' }}>
-                <Error fontSize="large" />
-                <div>network error...</div>
+            <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+                { hasError &&
+                    <Box sx={{ textAlign: 'center', color: 'error.dark' }}>
+                    <Error fontSize="large" />
+                    <div>network error...</div>
+                    </Box>
+                }
+                { isLoading && 
+                    <Box sx={{ textAlign: 'center', margin: '3rem' }}>
+                    <CircularProgress color="secondary" />
+                    </Box>
+                }
+                <Box sx={{ marginBottom: '1rem' }}>
+                    <figure className="highcharts-figure">
+                        <div id="container"></div>
+                        <p className="highcharts-description"></p>
+                    </figure>
                 </Box>
-            }
-            { isLoading && 
-                <Box sx={{ textAlign: 'center', margin: '3rem' }}>
-                <CircularProgress color="secondary" />
-                </Box>
-            }
-            <Box sx={{ marginBottom: '1rem' }}>
-                <figure className="highcharts-figure">
-                    <div id="container"></div>
-                    <p className="highcharts-description"></p>
-                </figure>
+                <Masonry columns={{ xs: 2, sm: 3, md: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
+                    {newsList.map((news, i) => 
+                        <Article 
+                        key={i}
+                        news={news}></Article>
+                    )}                
+                </Masonry>
             </Box>
-            <Masonry columns={{ xs: 2, sm: 3, md: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
-                {newsList.map((news, i) => 
-                    <Article 
-                    key={i}
-                    news={news}></Article>
-                )}                
-            </Masonry>
         </div>
     )
 }

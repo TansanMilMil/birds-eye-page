@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { cyan, lime, teal, yellow } from '@mui/material/colors';
+import { BrowserRouter } from 'react-router-dom';
 const theme = createTheme({
   palette: {
     primary: teal,
@@ -18,7 +19,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
