@@ -2,30 +2,46 @@ import { News } from "../types/news";
 import './Article.css';
 import { Chip, Zoom, Slide, Grow } from "@mui/material";
 
-export function Article (props: News) {
+type Props = {
+    news: News;
+}
+
+export function Article ({ news }: Props) {
     const clickSourceBy = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
-        window.open(props.scrapedUrl, '_blank')
+        window.open(news.scrapedUrl, '_blank')
     }
 
     const transitionDelay = () => Math.floor(Math.random() * 400) + 'ms';
+
+    const textEllipsis = (text: string, maxLength: number) => {
+        if (!text || text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength - 1)  + '...';
+    };
 
     return (
         <div>
             <Zoom in={true} style={{ transitionDelay: transitionDelay() }}>
                 <article>
-                    { props.articleImageUrl && 
-                        <a href={props.articleUrl}>
+                    { news.articleImageUrl && 
+                        <a href={news.articleUrl}>
                             <div className="image">
-                                <img src={props.articleImageUrl} alt="" />
+                                <img src={news.articleImageUrl} alt="" />
                             </div>
                         </a>
                     }
                     <div className="title">
-                        <a href={props.articleUrl}>{props.title}</a>
-                    </div>            
-                    <div className="scrapedDateTime">{props.scrapedDateTime}</div>
-                    <Chip label={props.sourceBy} size="small" onClick={clickSourceBy} />
+                        <a href={news.articleUrl}>{news.title}</a>
+                    </div>
+                    <div className="description">
+                        { textEllipsis(news.description, 100) }
+                    </div>
+                    <div className="scrapedDateTime">{news.scrapedDateTime}</div>
+                    { news.sourceBy &&
+                        <Chip label={news.sourceBy} size="small" onClick={clickSourceBy} />
+                    }
                 </article>
             </Zoom>
         </div>

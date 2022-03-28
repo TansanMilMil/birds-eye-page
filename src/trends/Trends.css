@@ -40,3 +40,7 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+svg.highcharts-root {
+    border-radius: 1rem;
+}

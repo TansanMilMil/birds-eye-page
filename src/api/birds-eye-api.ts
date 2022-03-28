@@ -8,4 +8,8 @@ export class BirdsEyeApi {
     public static getTodayNews(): Promise<AxiosResponse<News[], any>> {
         return axios.get(`${this.API_ENDPOINT}/news/today-news`);
     }
+
+    public static getTrends(): Promise<AxiosResponse<News[], any>> {
+        return axios.get(`${this.API_ENDPOINT}/news/trends`);
+    }    
 }

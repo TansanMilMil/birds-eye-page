@@ -5,18 +5,24 @@ import { Error } from '@mui/icons-material';
 import { TrendSeries } from "../types/trendsSeries";
 import './Trends.css';
 import { TrendData } from "../types/trendData";
+import { BirdsEyeApi } from "../api/birds-eye-api";
+import { News } from "../types/news";
+import { Article } from "../article/Article";
+import { Masonry } from "@mui/lab";
 declare var Highcharts: any;
 
 export function Trends() {
-    const KEYWORDS = ['news', 'cnn', 'trends'];
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasError, setHasError] = useState<boolean>(false);
+    const [newsList, setNewsList] = useState<News[]>([]);
 
     useEffect(() => {
         try {
             setIsLoading(true);
-            generateSeriesAsync(KEYWORDS)
-                .then(series => {
+            BirdsEyeApi.getTrends()
+                .then(res => {
+                    setNewsList(res.data);
+                    let series: TrendSeries[] = generateSeriesAsync(res.data);
                     renderCharts(series);
                     setIsLoading(false);
                 })
@@ -28,28 +34,22 @@ export function Trends() {
         }
     }, []);
 
-    async function generateSeriesAsync(keywords: string[]): Promise<TrendSeries[]> {
+    function generateSeriesAsync(newsList: News[]): TrendSeries[] {
+        const newsListReversed: News[] = JSON.parse(JSON.stringify(newsList));
         let series: TrendSeries[] = [{
             type: 'wordcloud',
             name: 'trends',
             data: [],
-        }];
-        const results = await Promise.all(keywords.map(keyword => getTrends(keyword)));
-        series[0].data = results.flat(1);
+        }];        
+        let trend: TrendData[] = newsListReversed.map((trend, i) => {
+            return {
+                name: trend.title,
+                weight: i + 1,
+            };
+        })        
+        series[0].data = trend;
 
         return series;
-    }
-
-    async function getTrends(keyword: string): Promise<TrendData[]> {
-        const res = await TrendsApi.getTrends(keyword);
-        let result: any[] = res.data.result;
-        let trend: TrendData[] = result.map(trend => {
-            return {
-                name: trend.name,
-                weight: Math.floor(Math.random() * 5) + 1,
-            };
-        })
-        return trend;
     }
 
     function renderCharts(series: TrendSeries[]) {
@@ -64,7 +64,7 @@ export function Trends() {
             },
             series: series,
             title: {
-                text: 'Trends'
+                text: 'Current Trends'
             }
         });
     }
@@ -82,12 +82,19 @@ export function Trends() {
                 <CircularProgress color="secondary" />
                 </Box>
             }
-            <Box sx={{ marginBottom: '5rem' }}>
+            <Box sx={{ marginBottom: '1rem' }}>
                 <figure className="highcharts-figure">
                     <div id="container"></div>
                     <p className="highcharts-description"></p>
                 </figure>
             </Box>
+            <Masonry columns={{ xs: 2, sm: 3, md: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
+                {newsList.map((news, i) => 
+                    <Article 
+                    key={i}
+                    news={news}></Article>
+                )}                
+            </Masonry>
         </div>
     )
 }

@@ -49,14 +49,7 @@ export function TodayNews() {
               {newsList.map((news, i) => 
                 <Article 
                   key={i}
-                  id={news.id} 
-                  title={news.title} 
-                  description={news.description} 
-                  sourceBy={news.sourceBy} 
-                  scrapedUrl={news.scrapedUrl} 
-                  scrapedDateTime={news.scrapedDateTime} 
-                  articleUrl={news.articleUrl}
-                  articleImageUrl={news.articleImageUrl}></Article>
+                  news={news}></Article>
               )}
             </Masonry>
           }
