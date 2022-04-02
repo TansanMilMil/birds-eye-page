@@ -23,8 +23,10 @@ const Author = styled.div`
 `;
 
 const Comment = styled.div`
-    color: #879b1d;
+    color: #333a0c;
     padding: 0.3rem;
+    word-break: break-word;
+    font-size: 0.9rem;
 `;
 
 const ReactionArea = styled.div`

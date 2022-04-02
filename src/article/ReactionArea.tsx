@@ -26,6 +26,10 @@ export function ReactionArea({ searchId }: Props) {
         BirdsEyeApi.getReactions(searchId)
             .then(result => {
                 setIsLoading(false);
+                result.data = result.data.map(r => {
+                    r.scrapedDateTime = new Date(Date.parse(r.scrapedDateTime)).toLocaleString();
+                    return r;
+                })
                 setReactions(result.data);
             })
             .catch(e => {
