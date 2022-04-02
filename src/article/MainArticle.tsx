@@ -1,12 +1,14 @@
 import { News } from "../types/news";
 import { Chip, Zoom } from "@mui/material";
 import styled from 'styled-components';
+import { ReactionArea } from "./ReactionArea";
 
 type Props = {
     news: News;
+    isDisplayReactions?: boolean;
 }
 
-export function MainArticle ({ news }: Props) {
+export function MainArticle ({ news, isDisplayReactions = false }: Props) {
     const clickSourceBy = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         window.open(news.scrapedUrl, '_blank')
@@ -41,6 +43,9 @@ export function MainArticle ({ news }: Props) {
                     <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
                     { news.sourceBy &&
                         <Chip label={news.sourceBy} size="small" onClick={clickSourceBy} />
+                    }
+                    { isDisplayReactions &&
+                        <ReactionArea searchId={news.id}></ReactionArea>
                     }
                 </Article>
             </Zoom>

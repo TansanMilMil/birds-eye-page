@@ -50,7 +50,8 @@ export function TodayNews() {
                 {newsList.map((news, i) => 
                   <MainArticle 
                     key={i}
-                    news={news}></MainArticle>
+                    news={news}
+                    isDisplayReactions={true}></MainArticle>
                 )}
               </Masonry>
             }
