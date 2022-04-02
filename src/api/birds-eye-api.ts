@@ -15,9 +15,9 @@ export class BirdsEyeApi {
     }
 
     public static getReactions(id: number): Promise<AxiosResponse<NewsReaction[], any>> {
-        const data = {
+        const query = {
             id: id
         };
-        return axios.post(`${this.API_ENDPOINT}/news/scrape-ref`, data);
+        return axios.get(`${this.API_ENDPOINT}/news/news-reactions`, { params: query });
     }        
 }
