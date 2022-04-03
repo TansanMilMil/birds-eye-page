@@ -5,7 +5,7 @@ import { BirdsEyeApi } from "../../api/BirdsEyeApi";
 import { NewsReaction } from "../../types/NewsReaction";
 import { Reaction } from "./Reaction";
 import CommentIcon from '@mui/icons-material/Comment';
-import { Badge, IconButton } from "@mui/material";
+import { Badge, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Link } from "@mui/material";
 import { CommentsDisabled, Newspaper } from "@mui/icons-material";
 import styled from "styled-components";
 import { News } from "../../types/News";
@@ -45,59 +45,81 @@ export function ReactionArea({ news, reactionCount }: Props) {
         setToggle(false);
     };
 
+    const textEllipsis = (text: string, maxLength: number) => {
+        if (!text || text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength - 1)  + '...';
+    };
+
     return (
         <div>
-            { isLoading && 
-                <Box sx={{ textAlign: 'center', margin: '1rem' }}>
-                <CircularProgress color="primary" />
-                </Box>
-            }
-            { !isLoading && !toggle &&
-                <div>
-                    { reactionCount >= 1 &&
-                        <Box sx={{ textAlign: 'right' }}>
-                            <IconButton onClick={getReactions}>
-                                <Badge badgeContent={reactionCount} color="secondary">
-                                    <CommentIcon />
-                                </Badge>
-                            </IconButton>
-                        </Box>
-                    }
-                </div>
-            }
-            { !isLoading && toggle && 
-                <div>
-                    <ReactionsWrap>
-                        { reactions.map((reaction, i) => 
-                            <Reaction 
-                                key={i} 
-                                reaction={reaction}
-                                newsTitle={news.title}
-                                index={i}></Reaction>
-                        )}
-                    </ReactionsWrap>
-                        { reactions.length === 0 &&
-                            <NoComment>no comment...</NoComment>
-                        }
+            <div>
+                { reactionCount >= 1 &&
                     <Box sx={{ textAlign: 'right' }}>
-                        <IconButton onClick={removeReactions}>
-                            <CommentsDisabled />
+                        <IconButton onClick={getReactions}>
+                            <Badge badgeContent={reactionCount} color="secondary">
+                                <CommentIcon />
+                            </Badge>
                         </IconButton>
                     </Box>
+                }
+            </div>
+            { !isLoading && toggle && 
+                <div>
+                    <Dialog
+                        open={toggle}
+                        onClose={removeReactions}
+                        scroll={'paper'}
+                        aria-labelledby="scroll-dialog-title"
+                        aria-describedby="scroll-dialog-description">
+                        <DialogTitle id="scroll-dialog-title">
+                            <Title>
+                                <Link href={news.articleUrl} target="_blank" rel="noreferrer">{news.title}</Link>
+                            </Title>
+                            <Description>{textEllipsis(news.description, 100)}</Description>
+                        </DialogTitle>
+                        <DialogContent dividers={true}>
+                            <DialogContentText
+                                id="scroll-dialog-description"
+                                tabIndex={-1}>
+                                { isLoading && 
+                                    <Box sx={{ textAlign: 'center', margin: '1rem' }}>
+                                    <CircularProgress color="primary" />
+                                    </Box>
+                                }                                    
+                                { !isLoading && 
+                                    [...reactions].map((reaction, i) => 
+                                        <Reaction 
+                                            key={i} 
+                                            reaction={reaction}
+                                            newsTitle={news.title}
+                                            index={i}></Reaction>
+                                )}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={removeReactions}>Close</Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             }
         </div>
     );
 }
 
-const ReactionsWrap = styled.div`
-    max-height: 500px;
-    overflow: auto;
+const Title = styled.div`
+    & a {
+        &:link {
+            text-decoration: none;
+        }
+        &:hover {
+            text-decoration: underline;
+        }        
+    }
 `;
 
-const NoComment = styled.div`
-    font-size: 0.9rem;
-    margin: 1rem;
-    text-align: center;
-    color: gray;
+const Description = styled.div`
+    font-size: 0.8rem;
+    color: #aaa;
 `;

@@ -28,14 +28,14 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
             <Zoom in={true} style={{ transitionDelay: transitionDelay() }}>
                 <Article>
                     { news.articleImageUrl && 
-                        <a href={news.articleUrl}>
+                        <a href={news.articleUrl} target="_blank" rel="noreferrer">
                             <Image>
                                 <img src={news.articleImageUrl} alt="" />
                             </Image>
                         </a>
                     }
                     <Title>
-                        <Link href={news.articleUrl} sx={{ color: 'primary.dark' }}>{news.title}</Link>
+                        <Link href={news.articleUrl} target="_blank" rel="noreferrer" sx={{ color: 'primary.dark' }}>{news.title}</Link>
                     </Title>
                     <Description>
                         { textEllipsis(news.description, 100) }
