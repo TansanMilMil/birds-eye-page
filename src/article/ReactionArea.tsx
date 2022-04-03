@@ -72,7 +72,8 @@ export function ReactionArea({ news, reactionCount }: Props) {
                             <Reaction 
                             key={i} 
                             reaction={reaction}
-                            newsTitle={news.title}></Reaction>
+                            newsTitle={news.title}
+                            index={i}></Reaction>
                         )
                     }
                     {

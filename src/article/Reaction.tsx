@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import { NewsReaction } from "../types/newsReaction";
 import reactStringReplace from 'react-string-replace';
-import { Box, Link } from "@mui/material";
+import { Avatar, Box, Grow, Link } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { blue, indigo, lightBlue } from "@mui/material/colors";
 
 type Props = {
     reaction: NewsReaction;
     newsTitle: string;
+    index: number;
 }
 
-export function Reaction({ reaction, newsTitle }: Props) {
+export function Reaction({ reaction, newsTitle, index }: Props) {
     const changeTitleColor = (text: string, title: string) => {
         if (!text) return text;
 
@@ -24,16 +28,32 @@ export function Reaction({ reaction, newsTitle }: Props) {
           ));        
         return dom;
     };
+
+    const transitionDelay = () => (index * 100) + 'ms';
     
     return (
         <div>
-            <ReactionArea>
-                {/* <Author>{reaction.author}</Author> */}
-                <Comment>{changeTitleColor(reaction.comment, newsTitle)}</Comment>
-                <Box sx={{ color: 'info.main' }}>
-                    <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
-                </Box>
-            </ReactionArea>
+            <Grow in={true} style={{ transitionDelay: transitionDelay() }}>
+                <ReactionArea>
+                    <Author>
+                        {(() => {
+                            switch (reaction.author) {
+                                case 'twitter user':
+                                    return <Avatar sx={{ width: 24, height: 24, bgcolor: lightBlue[500] }}><TwitterIcon /></Avatar>;
+                                case 'hatena user':
+                                    return <Avatar sx={{ width: 24, height: 24, bgcolor: blue[500] }}>B!</Avatar>;
+                                default:
+                                    return <Avatar sx={{ width: 24, height: 24 }}><PersonIcon /></Avatar>;
+                            }
+                        })()}                        
+                        <Box sx={{ paddingLeft: '0.5rem' }}>{reaction.author}</Box>
+                    </Author>
+                    <Comment>{changeTitleColor(reaction.comment, newsTitle)}</Comment>
+                    <Box sx={{ color: 'info.main' }}>
+                        <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
+                    </Box>
+                </ReactionArea>
+            </Grow>
         </div>
     );
 }
@@ -41,6 +61,9 @@ export function Reaction({ reaction, newsTitle }: Props) {
 const Author = styled.div`
     color: #939393;
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;    
+    margin: 0.3rem 0;
 `;
 
 const Comment = styled.div`
