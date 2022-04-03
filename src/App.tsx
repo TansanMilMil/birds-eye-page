@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 import { TodayNews } from './pages/todayNews/TodayNews';
 import title from './images/title.png';
 import { useEffect, useState } from 'react';
@@ -9,12 +9,12 @@ import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { lightGreen, teal } from '@mui/material/colors';
+import { green, lightGreen, orange, pink, teal } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: teal,
-    secondary: lightGreen,
+    secondary: pink,
   },
 });
 
@@ -31,28 +31,30 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBase>
-        <Title>
-          <img src={title} alt="title" />
-        </Title>
+      <Box sx={{ backgroundColor: 'primary.main' }}>
+        <AppBase>
+          <Title>
+            <img src={title} alt="title" />
+          </Title>
 
-        <Routes>
-          <Route path="/news" element={<TodayNews></TodayNews>} />
-          <Route path="/trends" element={<Trends></Trends>} />
-        </Routes>
+          <Routes>
+            <Route path="/news" element={<TodayNews></TodayNews>} />
+            <Route path="/trends" element={<Trends></Trends>} />
+          </Routes>
 
-        <BottomNavigation
-          showLabels
-          value={navigationValue}
-          onChange={(event, newValue) => { 
-            setNavigationValue(newValue);
-            navigate(newValue); 
-          }}
-          sx={{ position: 'fixed', bottom: '0', left: '0', width: '100%', zIndex: 100 }}>
-          <BottomNavigationAction label="News" icon={<NewspaperIcon />} value="/news" />
-          <BottomNavigationAction label="Trends" icon={<BubbleChartIcon />} value="/trends" />
-        </BottomNavigation>      
-      </AppBase>
+          <BottomNavigation
+            showLabels
+            value={navigationValue}
+            onChange={(event, newValue) => { 
+              setNavigationValue(newValue);
+              navigate(newValue); 
+            }}
+            sx={{ position: 'fixed', bottom: '0', left: '0', width: '100%', zIndex: 100 }}>
+            <BottomNavigationAction label="News" icon={<NewspaperIcon />} value="/news" />
+            <BottomNavigationAction label="Trends" icon={<BubbleChartIcon />} value="/trends" />
+          </BottomNavigation>      
+        </AppBase>
+      </Box>
     </ThemeProvider>
   );
 }

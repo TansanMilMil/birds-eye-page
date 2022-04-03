@@ -48,8 +48,12 @@ export function Reaction({ reaction, newsTitle, index }: Props) {
                         })()}                        
                         <Box sx={{ paddingLeft: '0.5rem' }}>{reaction.author}</Box>
                     </Author>
-                    <Comment>{changeTitleColor(reaction.comment, newsTitle)}</Comment>
-                    <Box sx={{ color: 'info.main' }}>
+                    <Comment>
+                        <Box sx={{ color: 'primary.dark' }}>
+                            {changeTitleColor(reaction.comment, newsTitle)}
+                        </Box>
+                    </Comment>
+                    <Box sx={{ color: 'secondary.main' }}>
                         <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
                     </Box>
                 </ReactionArea>
@@ -67,7 +71,6 @@ const Author = styled.div`
 `;
 
 const Comment = styled.div`
-    color: #333a0c;
     padding: 0.3rem;
     word-break: break-word;
     font-size: 0.9rem;

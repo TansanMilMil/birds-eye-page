@@ -1,5 +1,5 @@
 import { News } from "../../types/News";
-import { Box, Chip, Zoom } from "@mui/material";
+import { Box, Chip, Link, Zoom } from "@mui/material";
 import styled from 'styled-components';
 import { ReactionArea } from "./ReactionArea";
 
@@ -28,19 +28,19 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
             <Zoom in={true} style={{ transitionDelay: transitionDelay() }}>
                 <Article>
                     { news.articleImageUrl && 
-                        <A href={news.articleUrl}>
+                        <a href={news.articleUrl}>
                             <Image>
                                 <img src={news.articleImageUrl} alt="" />
                             </Image>
-                        </A>
+                        </a>
                     }
                     <Title>
-                        <A href={news.articleUrl}>{news.title}</A>
+                        <Link href={news.articleUrl} sx={{ color: 'primary.dark' }}>{news.title}</Link>
                     </Title>
                     <Description>
                         { textEllipsis(news.description, 100) }
                     </Description>
-                    <Box sx={{ color: 'info.main' }}>
+                    <Box sx={{ color: 'secondary.main' }}>
                         <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
                     </Box>
                     { news.sourceBy &&
@@ -62,18 +62,16 @@ const Article = styled.article`
     padding: 0.5rem 2rem;
     border-radius: 3.8rem;
     border-color: #a7a750;
-`;
-
-const A = styled.a`
-    color: #3e2723;
-    text-decoration: none;
-
-    &:hover {
-        color: #a54c3c;
-    }
-
-    &:visited {
-        color: #ababab;
+    & a {
+        &:link {
+            text-decoration: none;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+        &:visited {
+            color: #aaa;
+        }
     }
 `;
 

@@ -57,7 +57,7 @@ export function ReactionArea({ news, reactionCount }: Props) {
                     { reactionCount >= 1 &&
                         <Box sx={{ textAlign: 'right' }}>
                             <IconButton onClick={getReactions}>
-                                <Badge badgeContent={reactionCount} color="primary">
+                                <Badge badgeContent={reactionCount} color="secondary">
                                     <CommentIcon />
                                 </Badge>
                             </IconButton>
