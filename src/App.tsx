@@ -60,6 +60,7 @@ export function App() {
 }
 
 const AppBase = styled.div`
+  min-height: 100vh;
   padding-bottom: 5rem;
 `;
 
