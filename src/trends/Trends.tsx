@@ -90,7 +90,7 @@ export function Trends() {
                         <p className="highcharts-description"></p>
                     </figure>
                 </Box>
-                <Masonry columns={{ xs: 2, sm: 3, md: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
+                <Masonry columns={{ xs: 1, sm: 2, md: 4, lg: 5 }} spacing={{ xs: 1, sm: 1, md: 1 }}>
                     {newsList.map((news, i) => 
                         <MainArticle 
                         key={i}
