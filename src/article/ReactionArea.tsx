@@ -6,15 +6,16 @@ import { NewsReaction } from "../types/newsReaction";
 import { Reaction } from "./Reaction";
 import CommentIcon from '@mui/icons-material/Comment';
 import { Badge, IconButton } from "@mui/material";
-import { CommentsDisabled } from "@mui/icons-material";
+import { CommentsDisabled, Newspaper } from "@mui/icons-material";
 import styled from "styled-components";
+import { News } from "../types/news";
 
 type Props = {
-    searchId: number;
+    news: News;
     reactionCount: number;
 }
 
-export function ReactionArea({ searchId, reactionCount }: Props) {
+export function ReactionArea({ news, reactionCount }: Props) {
     const [reactions, setReactions] = useState<NewsReaction[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [toggle, setToggle] = useState<boolean>(false);
@@ -24,7 +25,7 @@ export function ReactionArea({ searchId, reactionCount }: Props) {
 
         setIsLoading(true);
         setToggle(true);
-        BirdsEyeApi.getReactions(searchId)
+        BirdsEyeApi.getReactions(news.id)
             .then(result => {
                 setIsLoading(false);
                 result.data = result.data.map(r => {
@@ -67,10 +68,11 @@ export function ReactionArea({ searchId, reactionCount }: Props) {
             { !isLoading && toggle && 
                 <div>
                     {
-                        reactions.map(reaction => 
-                            <div>
-                                <Reaction reaction={reaction}></Reaction>
-                            </div>
+                        reactions.map((reaction, i) => 
+                            <Reaction 
+                            key={i} 
+                            reaction={reaction}
+                            newsTitle={news.title}></Reaction>
                         )
                     }
                     {

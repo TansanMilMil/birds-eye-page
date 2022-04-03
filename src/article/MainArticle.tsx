@@ -1,5 +1,5 @@
 import { News } from "../types/news";
-import { Chip, Zoom } from "@mui/material";
+import { Box, Chip, Zoom } from "@mui/material";
 import styled from 'styled-components';
 import { ReactionArea } from "./ReactionArea";
 
@@ -40,12 +40,16 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
                     <Description>
                         { textEllipsis(news.description, 100) }
                     </Description>
-                    <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
+                    <Box sx={{ color: 'info.main' }}>
+                        <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
+                    </Box>
                     { news.sourceBy &&
                         <Chip label={news.sourceBy} size="small" onClick={clickSourceBy} />
                     }
                     { isDisplayReactions &&
-                        <ReactionArea searchId={news.id} reactionCount={news.reactionCount}></ReactionArea>
+                        <ReactionArea 
+                        news={news} 
+                        reactionCount={news.reactionCount}></ReactionArea>
                     }
                 </Article>
             </Zoom>
@@ -86,7 +90,6 @@ const Description = styled.div`
 `;
 
 const ScrapedDateTime = styled.div`
-    color: #d2ae0d;
     font-size: 0.9rem;
     margin: 0.3rem 0;
 `;

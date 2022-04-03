@@ -1,17 +1,38 @@
 import styled from "styled-components";
 import { NewsReaction } from "../types/newsReaction";
+import reactStringReplace from 'react-string-replace';
+import { Box, Link } from "@mui/material";
 
 type Props = {
     reaction: NewsReaction;
+    newsTitle: string;
 }
 
-export function Reaction({ reaction }: Props) {
+export function Reaction({ reaction, newsTitle }: Props) {
+    const changeTitleColor = (text: string, title: string) => {
+        if (!text) return text;
+
+        let dom: React.ReactNodeArray = [text];
+        dom = reactStringReplace(dom, new RegExp('(' + title + ')', 'g'), (match, i) => 
+            <Link key={match + i} href={match} target="_blank" rel="noreferrer" className="ref-title">{match}</Link>
+        );
+        dom = reactStringReplace(dom, /(https?:\/\/\S+)/g, (match, i) => (
+            <Link key={match + i} href={match} target="_blank" rel="noreferrer">{match}</Link>
+        ));
+        dom = reactStringReplace(dom, /#(\S+)/g, (match, i) => (
+            <Link key={match + i} href={`https://twitter.com/hashtag/${match}`} target="_blank" rel="noreferrer">#{match}</Link>
+          ));        
+        return dom;
+    };
+    
     return (
         <div>
             <ReactionArea>
-                <Author>{reaction.author}</Author>
-                <Comment>{reaction.comment}</Comment>
-                <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
+                {/* <Author>{reaction.author}</Author> */}
+                <Comment>{changeTitleColor(reaction.comment, newsTitle)}</Comment>
+                <Box sx={{ color: 'info.main' }}>
+                    <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
+                </Box>
             </ReactionArea>
         </div>
     );
@@ -37,7 +58,6 @@ const ReactionArea = styled.div`
 `;
 
 const ScrapedDateTime = styled.div`
-    color: #d2ae0d;
     font-size: 0.9rem;
     margin: 0.3rem 0;
 `;
