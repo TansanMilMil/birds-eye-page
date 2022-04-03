@@ -67,19 +67,18 @@ export function ReactionArea({ news, reactionCount }: Props) {
             }
             { !isLoading && toggle && 
                 <div>
-                    {
-                        reactions.map((reaction, i) => 
+                    <ReactionsWrap>
+                        { reactions.map((reaction, i) => 
                             <Reaction 
-                            key={i} 
-                            reaction={reaction}
-                            newsTitle={news.title}
-                            index={i}></Reaction>
-                        )
-                    }
-                    {
-                        reactions.length === 0 &&
-                        <NoComment>no comment...</NoComment>
-                    }
+                                key={i} 
+                                reaction={reaction}
+                                newsTitle={news.title}
+                                index={i}></Reaction>
+                        )}
+                    </ReactionsWrap>
+                        { reactions.length === 0 &&
+                            <NoComment>no comment...</NoComment>
+                        }
                     <Box sx={{ textAlign: 'right' }}>
                         <IconButton onClick={removeReactions}>
                             <CommentsDisabled />
@@ -90,6 +89,11 @@ export function ReactionArea({ news, reactionCount }: Props) {
         </div>
     );
 }
+
+const ReactionsWrap = styled.div`
+    max-height: 500px;
+    overflow: auto;
+`;
 
 const NoComment = styled.div`
     font-size: 0.9rem;
