@@ -1,4 +1,4 @@
-import { News } from "../types/news";
+import { News } from "../../types/News";
 import { Box, Chip, Zoom } from "@mui/material";
 import styled from 'styled-components';
 import { ReactionArea } from "./ReactionArea";

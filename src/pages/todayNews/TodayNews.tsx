@@ -1,10 +1,10 @@
 import { Box, CircularProgress } from '@mui/material';
 import { Masonry } from '@mui/lab';
 import { Error } from '@mui/icons-material';
-import { MainArticle } from '../article/MainArticle';
-import { News } from '../types/news';
+import { MainArticle } from '../../share-components/article/MainArticle';
+import { News } from '../../types/News';
 import { useEffect, useState } from 'react';
-import { BirdsEyeApi } from '../api/birds-eye-api';
+import { BirdsEyeApi } from '../../api/BirdsEyeApi';
 
 export function TodayNews() {
     const [newsList, setNewsList] = useState<News[]>([]);

@@ -1,4 +1,4 @@
-import { TrendData } from "./trendData";
+import { TrendData } from "./TrendData";
 
 export type TrendSeries = {
     type: string;

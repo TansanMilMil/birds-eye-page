@@ -1,4 +1,4 @@
-import { News } from "./news";
+import { News } from "./News";
 
 export type NewsGroup = {
     sourceBy: string;

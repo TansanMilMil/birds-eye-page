@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NewsReaction } from "../types/newsReaction";
+import { NewsReaction } from "../../types/NewsReaction";
 import reactStringReplace from 'react-string-replace';
 import { Avatar, Box, Grow, Link } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";

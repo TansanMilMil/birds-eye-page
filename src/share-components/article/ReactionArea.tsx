@@ -1,14 +1,14 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { useEffect, useState } from "react";
-import { BirdsEyeApi } from "../api/birds-eye-api";
-import { NewsReaction } from "../types/newsReaction";
+import { BirdsEyeApi } from "../../api/BirdsEyeApi";
+import { NewsReaction } from "../../types/NewsReaction";
 import { Reaction } from "./Reaction";
 import CommentIcon from '@mui/icons-material/Comment';
 import { Badge, IconButton } from "@mui/material";
 import { CommentsDisabled, Newspaper } from "@mui/icons-material";
 import styled from "styled-components";
-import { News } from "../types/news";
+import { News } from "../../types/News";
 
 type Props = {
     news: News;
