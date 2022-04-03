@@ -7,4 +7,5 @@ export type News = {
     scrapedDateTime: string;
     articleUrl: string;
     articleImageUrl: string;
+    reactionCount: number;
 }

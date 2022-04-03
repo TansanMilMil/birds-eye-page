@@ -45,7 +45,7 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
                         <Chip label={news.sourceBy} size="small" onClick={clickSourceBy} />
                     }
                     { isDisplayReactions &&
-                        <ReactionArea searchId={news.id}></ReactionArea>
+                        <ReactionArea searchId={news.id} reactionCount={news.reactionCount}></ReactionArea>
                     }
                 </Article>
             </Zoom>

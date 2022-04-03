@@ -5,15 +5,16 @@ import { BirdsEyeApi } from "../api/birds-eye-api";
 import { NewsReaction } from "../types/newsReaction";
 import { Reaction } from "./Reaction";
 import CommentIcon from '@mui/icons-material/Comment';
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import { CommentsDisabled } from "@mui/icons-material";
 import styled from "styled-components";
 
 type Props = {
     searchId: number;
+    reactionCount: number;
 }
 
-export function ReactionArea({ searchId }: Props) {
+export function ReactionArea({ searchId, reactionCount }: Props) {
     const [reactions, setReactions] = useState<NewsReaction[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [toggle, setToggle] = useState<boolean>(false);
@@ -52,11 +53,15 @@ export function ReactionArea({ searchId }: Props) {
             }
             { !isLoading && !toggle &&
                 <div>
-                    <Box sx={{ textAlign: 'right' }}>
-                        <IconButton onClick={getReactions}>
-                            <CommentIcon />
-                        </IconButton>
-                    </Box>
+                    { reactionCount >= 1 &&
+                        <Box sx={{ textAlign: 'right' }}>
+                            <IconButton onClick={getReactions}>
+                                <Badge badgeContent={reactionCount} color="primary">
+                                    <CommentIcon />
+                                </Badge>
+                            </IconButton>
+                        </Box>
+                    }
                 </div>
             }
             { !isLoading && toggle && 
