@@ -61,7 +61,7 @@ export function App() {
 
 const AppBase = styled.div`
   min-height: 100vh;
-  padding-bottom: 5rem;
+  padding: 8px 8px 5rem 8px;
 `;
 
 const Title = styled.h1`
