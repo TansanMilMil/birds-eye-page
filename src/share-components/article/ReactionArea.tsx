@@ -65,7 +65,7 @@ export function ReactionArea({ news, reactionCount }: Props) {
                     </Box>
                 }
             </div>
-            { !isLoading && toggle && 
+            { toggle && 
                 <div>
                     <Dialog
                         open={toggle}
@@ -85,7 +85,7 @@ export function ReactionArea({ news, reactionCount }: Props) {
                                 tabIndex={-1}>
                                 { isLoading && 
                                     <Box sx={{ textAlign: 'center', margin: '1rem' }}>
-                                    <CircularProgress color="primary" />
+                                        <CircularProgress color="primary" />
                                     </Box>
                                 }                                    
                                 { !isLoading && 
