@@ -1,6 +1,6 @@
 import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 import { TodayNews } from './pages/todayNews/TodayNews';
-import title from './images/title.png';
+import title from './images/logo.png';
 import { useEffect, useState } from 'react';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
@@ -42,6 +42,10 @@ export function App() {
             <Route path="/trends" element={<Trends></Trends>} />
           </Routes>
 
+          <Credit>
+            <div>ロゴは <a href="https://www.designevo.com/jp/" title="無料オンラインロゴメーカー">DesignEvo</a> ロゴメーカーさんに作られる</div>
+          </Credit>
+
           <BottomNavigation
             showLabels
             value={navigationValue}
@@ -70,4 +74,10 @@ const Title = styled.h1`
   text-align: center;
   font-weight: normal;
   margin: 0;
+`;
+
+const Credit = styled.div`
+  font-size: 0.5rem;
+  text-align: center;
+  color: #ccc;
 `;
