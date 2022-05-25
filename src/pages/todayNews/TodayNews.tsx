@@ -1,10 +1,10 @@
 import { Alert, Box, CircularProgress } from '@mui/material';
 import { Masonry } from '@mui/lab';
-import { Error } from '@mui/icons-material';
 import { MainArticle } from '../../share-components/article/MainArticle';
 import { News } from '../../types/News';
 import { useEffect, useState } from 'react';
 import { BirdsEyeApi } from '../../api/BirdsEyeApi';
+import { ThemeColorSetting } from '../../share-components/config/ThemeColorSetting';
 
 export function TodayNews() {
     const [newsList, setNewsList] = useState<News[]>([]);
@@ -34,6 +34,9 @@ export function TodayNews() {
     return (
         <div>
           <Box sx={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <Box sx={{ marginBottom: '2rem' }}>
+              <ThemeColorSetting></ThemeColorSetting>
+            </Box>
             { hasError &&
               <Alert severity="error">network error...</Alert>
             }

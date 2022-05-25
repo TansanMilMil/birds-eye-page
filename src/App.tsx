@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box, Theme } from '@mui/material';
 import { TodayNews } from './pages/todayNews/TodayNews';
 import title from './images/logo.png';
 import { useEffect, useState } from 'react';
@@ -8,19 +8,19 @@ import { Trends } from './pages/trends/Trends';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { green, lightGreen, orange, pink, teal } from '@mui/material/colors';
-
-const theme = createTheme({
-  palette: {
-    primary: teal,
-    secondary: pink,
-  },
-});
+import { MuiTheme } from './mui-theme';
+import { RootState } from './app/store';
 
 export function App() {
   const navigate = useNavigate();
   const [navigationValue, setNavigationValue] = useState<string>();
+  const theme: Theme = useSelector((state: RootState) => {
+    return createTheme({
+      palette: MuiTheme.GetTheme(state.theme.themeName),
+    });
+  });
 
   useEffect(() => {
     if (window.location.pathname === '/') {
@@ -28,7 +28,7 @@ export function App() {
     }
     setNavigationValue(window.location.pathname);
   }, []);
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ backgroundColor: 'primary.main' }}>
