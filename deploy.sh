@@ -5,6 +5,7 @@ aws --version
 node -v
 npm -v
 
+npm install
 npm run build
 aws s3 sync --exact-timestamps ./build s3://birds-eye-pages
 aws s3 cp ./robots.txt s3://birds-eye-pages

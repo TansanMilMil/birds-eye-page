@@ -1,4 +1,6 @@
-FROM amazon/aws-cli:latest
-RUN curl -fsSL https://rpm.nodesource.com/setup_16.x | bash - && \
-    yum install -y nodejs
+FROM node:16
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    aws --version
 WORKDIR /project
