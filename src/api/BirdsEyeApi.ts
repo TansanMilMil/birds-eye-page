@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { News } from "../types/News";
-import { NewsGroup } from "../types/NewsGroup";
 import { NewsReaction } from "../types/NewsReaction";
 
 export class BirdsEyeApi {
