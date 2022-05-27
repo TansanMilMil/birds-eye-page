@@ -15,4 +15,5 @@ jobs:
       - run: echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY >> aws-config.env
       - run: docker-compose up -d
       - run: docker-compose exec -T node npm install
+      - run: docker-compose exec -T node chmod +x /project/deploy.sh
       - run: docker-compose exec -T node /project/deploy.sh
