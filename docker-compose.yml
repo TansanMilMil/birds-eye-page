@@ -10,3 +10,5 @@ services:
     tty: true
     env_file: 
       - ./aws-config.env
+    environment:
+      - AWS_PAGER=""
