@@ -4,6 +4,7 @@ cd `dirname $0`
 aws --version
 node -v
 npm -v
+tree
 
 npm install
 npm run build
