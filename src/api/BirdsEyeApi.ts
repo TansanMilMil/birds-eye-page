@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import { AxiosResponse } from "axios";
 import { News } from "../types/News";
 import { NewsReaction } from "../types/NewsReaction";
 
