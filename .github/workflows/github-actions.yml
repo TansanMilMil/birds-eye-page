@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID >> aws-config.env
       - run: echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY >> aws-config.env
+      - run: sudo apt install tree && tree
       - run: docker-compose up -d
       - run: docker-compose exec -T node chmod +x /project/deploy.sh
       - run: docker-compose exec -T node /project/deploy.sh
