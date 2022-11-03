@@ -1,9 +1,9 @@
 import { Alert, Box, CircularProgress } from '@mui/material';
 import { Masonry } from '@mui/lab';
 import { MainArticle } from '../../share-components/article/MainArticle';
-import { News } from '../../types/News';
+import { News } from '../../types/news';
 import { useEffect, useState } from 'react';
-import { BirdsEyeApi } from '../../api/BirdsEyeApi';
+import { BirdsEyeApi } from '../../api/birdsEyeApi';
 import { ThemeColorSetting } from '../../share-components/config/ThemeColorSetting';
 
 export function TodayNews() {

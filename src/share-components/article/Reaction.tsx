@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { NewsReaction } from "../../types/NewsReaction";
+import { NewsReaction } from "../../types/newsReaction";
 import reactStringReplace from 'react-string-replace';
 import { Avatar, Box, Grow, Link } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { blue, indigo, lightBlue } from "@mui/material/colors";
+import { blue, lightBlue } from "@mui/material/colors";
 
 type Props = {
     reaction: NewsReaction;
@@ -46,7 +46,11 @@ export function Reaction({ reaction, newsTitle, index }: Props) {
                                     return <Avatar sx={{ width: 24, height: 24 }}><PersonIcon /></Avatar>;
                             }
                         })()}                        
-                        <Box sx={{ paddingLeft: '0.5rem' }}>{reaction.author}</Box>
+                        <Box sx={{ paddingLeft: '0.5rem' }}>
+                            <Link href={reaction.commentUrl} target="_blank" rel="noreferrer" sx={{ color: 'primary.dark' }}>
+                                {reaction.author}
+                            </Link>
+                        </Box>
                     </Author>
                     <Comment>
                         {changeTitleColor(reaction.comment, newsTitle)}
@@ -66,6 +70,17 @@ const Author = styled.div`
     display: flex;
     align-items: center;    
     margin: 0.3rem 0;
+    & a {
+        &:link {
+            text-decoration: none;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+        &:visited {
+            color: #aaa;
+        }
+    }
 `;
 
 const Comment = styled.div`

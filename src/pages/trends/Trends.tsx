@@ -1,10 +1,10 @@
 import { Alert, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Error } from '@mui/icons-material';
-import { TrendSeries } from "../../types/TrendsSeries";
-import { TrendData } from "../../types/TrendData";
-import { BirdsEyeApi } from "../../api/BirdsEyeApi";
-import { News } from "../../types/News";
+import { TrendSeries } from "../../types/trendsSeries";
+import { TrendData } from "../../types/trendData";
+import { BirdsEyeApi } from "../../api/birdsEyeApi";
+import { News } from "../../types/news";
 import { MainArticle } from "../../share-components/article/MainArticle";
 import { Masonry } from "@mui/lab";
 import styled from 'styled-components';

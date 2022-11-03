@@ -1,14 +1,13 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
-import { useEffect, useState } from "react";
-import { BirdsEyeApi } from "../../api/BirdsEyeApi";
-import { NewsReaction } from "../../types/NewsReaction";
+import { useState } from "react";
+import { BirdsEyeApi } from "../../api/birdsEyeApi";
+import { NewsReaction } from "../../types/newsReaction";
 import { Reaction } from "./Reaction";
 import CommentIcon from '@mui/icons-material/Comment';
-import { Badge, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Link } from "@mui/material";
-import { CommentsDisabled, Newspaper } from "@mui/icons-material";
+import { Badge, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Link } from "@mui/material";
 import styled from "styled-components";
-import { News } from "../../types/News";
+import { News } from "../../types/news";
 
 type Props = {
     news: News;
@@ -80,7 +79,7 @@ export function ReactionArea({ news, reactionCount }: Props) {
                             <Description>{textEllipsis(news.description, 100)}</Description>
                         </DialogTitle>
                         <DialogContent dividers={true}>
-                            <DialogContentText
+                            <div
                                 id="scroll-dialog-description"
                                 tabIndex={-1}>
                                 { isLoading && 
@@ -95,8 +94,9 @@ export function ReactionArea({ news, reactionCount }: Props) {
                                             reaction={reaction}
                                             newsTitle={news.title}
                                             index={i}></Reaction>
-                                )}
-                            </DialogContentText>
+                                    )
+                                }
+                            </div>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={removeReactions}>Close</Button>

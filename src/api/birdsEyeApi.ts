@@ -1,10 +1,11 @@
 import axios from "axios";
 import { AxiosResponse } from "axios";
-import { News } from "../types/News";
-import { NewsReaction } from "../types/NewsReaction";
+import { Env } from "../env";
+import { News } from "../types/news";
+import { NewsReaction } from "../types/newsReaction";
 
 export class BirdsEyeApi {
-    private static readonly API_ENDPOINT: string = 'https://birds-eye-api.ts-soda.net';
+    private static readonly API_ENDPOINT: string = Env.BirdsEyeApiEndpoint();
 
     public static getTodayNews(): Promise<AxiosResponse<News[], any>> {
         return axios.get(`${this.API_ENDPOINT}/news/today-news`);
