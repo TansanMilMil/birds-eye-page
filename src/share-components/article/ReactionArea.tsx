@@ -76,7 +76,6 @@ export function ReactionArea({ news, reactionCount }: Props) {
                             <Title>
                                 <Link href={news.articleUrl} target="_blank" rel="noreferrer">{news.title}</Link>
                             </Title>
-                            <Description>{textEllipsis(news.description, 100)}</Description>
                         </DialogTitle>
                         <DialogContent dividers={true}>
                             <div
@@ -117,9 +116,4 @@ const Title = styled.div`
             text-decoration: underline;
         }        
     }
-`;
-
-const Description = styled.div`
-    font-size: 0.8rem;
-    color: #aaa;
 `;

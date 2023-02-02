@@ -15,12 +15,12 @@ export function TodayNews() {
       if (newsList.length === 0) {
         setIsLoading(true);
         BirdsEyeApi.getTodayNews()
-          .then(newsList => {
-            const news: News[] = newsList.data.map(news => {
+          .then(res => {
+            const newsList: News[] = res.data.map(news => {
               news.scrapedDateTime = new Date(Date.parse(news.scrapedDateTime)).toLocaleString();
               return news;
             });
-            setNewsList(news);
+            setNewsList(newsList);
             setIsLoading(false);
           })
           .catch(err => {

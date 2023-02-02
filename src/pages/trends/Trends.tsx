@@ -20,7 +20,11 @@ export function Trends() {
             setIsLoading(true);
             BirdsEyeApi.getTrends()
                 .then(res => {
-                    setNewsList(res.data);
+                    const newsList: News[] = res.data.map(news => {
+                        news.scrapedDateTime = new Date(Date.parse(news.scrapedDateTime)).toLocaleString();
+                        return news;
+                    });
+                    setNewsList(newsList);
                     let series: TrendSeries[] = generateSeriesAsync(res.data);
                     renderCharts(series);
                     setIsLoading(false);
