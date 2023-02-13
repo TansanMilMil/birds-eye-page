@@ -1,6 +1,5 @@
 import { Alert, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Error } from '@mui/icons-material';
 import { TrendSeries } from "../../types/trendsSeries";
 import { TrendData } from "../../types/trendData";
 import { BirdsEyeApi } from "../../api/birdsEyeApi";

@@ -45,7 +45,3 @@ export function ThemeColorSetting() {
         </Box>
     </div>);
 }
-
-const ThemeButton = styled.button`
-  padding: 8px;
-`;

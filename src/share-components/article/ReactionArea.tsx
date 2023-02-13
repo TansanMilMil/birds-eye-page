@@ -44,13 +44,6 @@ export function ReactionArea({ news, reactionCount }: Props) {
         setToggle(false);
     };
 
-    const textEllipsis = (text: string, maxLength: number) => {
-        if (!text || text.length <= maxLength) {
-            return text;
-        }
-        return text.substring(0, maxLength - 1)  + '...';
-    };
-
     return (
         <div>
             <div>

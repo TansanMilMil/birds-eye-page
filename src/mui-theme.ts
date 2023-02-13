@@ -1,5 +1,5 @@
-import { createTheme, PaletteOptions, Theme } from "@mui/material";
-import { amber, blue, cyan, deepOrange, green, indigo, lightBlue, orange, pink, purple, red, teal, yellow } from "@mui/material/colors";
+import { PaletteOptions } from "@mui/material";
+import { blue, deepOrange, orange, pink, purple, red, teal } from "@mui/material/colors";
 import { MuiThemeNames } from "./mui-theme-names";
 
 export class MuiTheme {
