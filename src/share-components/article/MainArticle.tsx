@@ -38,7 +38,7 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
                         <Link href={news.articleUrl} target="_blank" rel="noreferrer" sx={{ color: 'primary.dark' }}>{news.title}</Link>
                     </Title>
                     <Description>
-                        { textEllipsis(news.description, 100) }
+                        { news.summarizedText }
                     </Description>
                     <Box sx={{ color: 'secondary.main' }}>
                         <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
@@ -59,8 +59,8 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
 
 const Article = styled.article`
     background-color: #f5f5f5;
-    padding: 0.5rem 2rem;
-    border-radius: 3.8rem;
+    padding: 1.6rem 1.6rem;
+    border-radius: 2.8rem;
     border-color: #a7a750;
     & a {
         &:link {
@@ -82,9 +82,10 @@ const Title = styled.div`
 `;
 
 const Description = styled.div`
-    font-size: 0.8rem;
-    color: #939393;
+    font-size: 0.9rem;
+    color: #7d7d7d;
     overflow: hidden;
+    line-height: 1.2rem;
 `;
 
 const ScrapedDateTime = styled.div`
