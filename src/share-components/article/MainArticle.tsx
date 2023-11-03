@@ -59,7 +59,7 @@ export function MainArticle ({ news, isDisplayReactions = false }: Props) {
 
 const Article = styled.article`
     background-color: #f5f5f5;
-    padding: 1.6rem 1.6rem;
+    padding: 1.6rem 2.2rem;
     border-radius: 2.8rem;
     border-color: #a7a750;
     & a {
@@ -83,9 +83,9 @@ const Title = styled.div`
 
 const Description = styled.div`
     font-size: 0.9rem;
-    color: #7d7d7d;
+    color: #333333;
     overflow: hidden;
-    line-height: 1.2rem;
+    line-height: 1.5rem;
 `;
 
 const ScrapedDateTime = styled.div`

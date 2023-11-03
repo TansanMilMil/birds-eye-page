@@ -1,21 +1,75 @@
 name: GitHub Actions
+
 on:
   push:
     branches:
       - "main"
+
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ap-northeast-1
+  AWS_PAGER: ""
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+
 jobs:
-  deploy-aws:
+  build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - run: echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID >> aws-config.env
-      - run: echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY >> aws-config.env
-      - run: echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION >> aws-config.env
-      - run: sudo apt install tree && tree
-      - run: docker compose up -d
-      - run: docker compose exec -T node chmod +x /project/deploy.sh
-      - run: docker compose exec -T node /project/deploy.sh
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: docker compose up -d
+        run: docker compose up -d
+
+      - name: npm install
+        run: docker compose exec -T node npm install
+
+      - name: npm run build
+        run: |
+          docker compose exec -T node npm run build
+          tar cvfz ./build.tgz ./build/
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build.tgz
+          path: build.tgz
+
+      - name: docker compose down
+        run: docker compose down
+        if: ${{ always() }}
+
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      # - name: generate .env
+      #   run: |
+      #     cat <<EOT >> .env
+      #     AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      #     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      #     AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      #     EOT
+
+      - name: download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build.tgz
+
+      - name: docker compose up -d
+        run: docker compose up -d
+
+      - name: sync AWS S3
+        run: |
+          tar xvfz ./build.tgz
+          docker compose exec -T node aws s3 sync --exact-timestamps ./build s3://birds-eye-pages
+          docker compose exec -T node aws s3 cp ./robots.txt s3://birds-eye-pages
+          docker compose exec -T node aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+
+      - name: docker compose down
+        run: docker compose down
+        if: ${{ always() }}

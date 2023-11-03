@@ -1,14 +1,15 @@
-version: '3'
+version: "3"
 services:
   node:
     build: .
     working_dir: /project
     volumes:
-    - .:/project
+      - .:/project
     ports:
       - 3000:3000
     tty: true
-    env_file: 
-      - ./aws-config.env
     environment:
-      - AWS_PAGER=""
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+      - AWS_PAGER
