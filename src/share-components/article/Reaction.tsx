@@ -16,7 +16,7 @@ export function Reaction({ reaction, newsTitle, index }: Props) {
   const changeTitleColor = (text: string, title: string) => {
     if (!text) return text;
 
-    let dom: React.ReactNodeArray = [text];
+    let dom: React.ReactNode[] = [text];
     dom = reactStringReplace(
       dom,
       new RegExp("(" + title + ")", "g"),

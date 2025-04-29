@@ -1,20 +1,31 @@
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
-import { MuiTheme } from '../mui-theme';
+import {
+  createSlice,
+  PayloadAction,
+  SliceCaseReducers,
+  SliceSelectors,
+} from "@reduxjs/toolkit";
+import { MuiTheme } from "../mui-theme";
 
 export type ThemeState = {
-    themeName: string;
+  themeName: string;
 };
 
-export const themeSlice = createSlice<ThemeState, SliceCaseReducers<ThemeState>, string>({
-    name: 'theme',
-    initialState: {
-        themeName: MuiTheme.DefaultThemeName,
+export const themeSlice = createSlice<
+  ThemeState,
+  SliceCaseReducers<ThemeState>,
+  string,
+  SliceSelectors<ThemeState>,
+  string
+>({
+  name: "theme",
+  initialState: {
+    themeName: MuiTheme.DefaultThemeName,
+  },
+  reducers: {
+    changeThemePalette: (state, action: PayloadAction<string>) => {
+      return { ...state, themeName: action.payload };
     },
-    reducers: {
-        changeThemePalette: (state, action: PayloadAction<string>) => { 
-            return { ...state, themeName: action.payload };
-        },
-    }
+  },
 });
 
 export const { changeThemePalette } = themeSlice.actions;
