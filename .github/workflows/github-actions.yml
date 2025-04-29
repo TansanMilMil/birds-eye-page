@@ -75,6 +75,6 @@ jobs:
       - name: docker compose up -d
         run: docker compose up -d
 
-      - name: sync AWS S3
+      - name: create-invalidation on cloudfront
         run: |
           docker compose exec -T node aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
