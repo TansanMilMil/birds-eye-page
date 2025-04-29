@@ -47,29 +47,34 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      # - name: generate .env
-      #   run: |
-      #     cat <<EOT >> .env
-      #     AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      #     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      #     AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-      #     EOT
+      - name: docker compose up -d
+        run: docker compose up -d
 
       - name: download-artifact
         uses: actions/download-artifact@v4
         with:
           name: build.tgz
 
-      - name: docker compose up -d
-        run: docker compose up -d
-
       - name: sync AWS S3
         run: |
           tar xvfz ./build.tgz
           docker compose exec -T node aws s3 sync --exact-timestamps ./build s3://birds-eye-pages
           docker compose exec -T node aws s3 cp ./robots.txt s3://birds-eye-pages
-          docker compose exec -T node aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
 
       - name: docker compose down
         run: docker compose down
         if: ${{ always() }}
+
+  remove_old_caches:
+    runs-on: ubuntu-22.04
+    needs: deploy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: docker compose up -d
+        run: docker compose up -d
+
+      - name: sync AWS S3
+        run: |
+          docker compose exec -T node aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
