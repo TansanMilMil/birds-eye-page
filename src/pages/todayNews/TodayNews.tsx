@@ -15,8 +15,8 @@ export function TodayNews() {
     if (newsList.length === 0) {
       setIsLoading(true);
       BirdsEyeApi.getTodayNews()
-        .then((res) => {
-          const newsList: News[] = res.data.map((news) => {
+        .then((result) => {
+          const newsList: News[] = result.news.map((news) => {
             news.scrapedDateTime = new Date(
               Date.parse(news.scrapedDateTime)
             ).toLocaleString();

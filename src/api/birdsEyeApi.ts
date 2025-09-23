@@ -1,23 +1,28 @@
 import axios from "axios";
-import { AxiosResponse } from "axios";
 import { Env } from "../env";
-import { News } from "../types/news";
-import { NewsReaction } from "../types/newsReaction";
+import {
+  GetReactionsResponse,
+  GetTodayNewsResponse,
+  GetTrendsResponse,
+} from "../types/birdsEyeApi";
 
 export class BirdsEyeApi {
   private static readonly API_ENDPOINT: string = Env.BirdsEyeApiEndpoint();
 
-  public static getTodayNews(): Promise<AxiosResponse<News[], any>> {
-    return axios.get(`${this.API_ENDPOINT}/news/today-news`);
+  public static async getTodayNews(): Promise<GetTodayNewsResponse> {
+    const res = await axios.get(`${this.API_ENDPOINT}/news/today-news`);
+    return res.data;
   }
 
-  public static getTrends(): Promise<AxiosResponse<News[], any>> {
-    return axios.get(`${this.API_ENDPOINT}/news/trends`);
+  public static async getTrends(): Promise<GetTrendsResponse> {
+    const res = await axios.get(`${this.API_ENDPOINT}/news/trends`);
+    return res.data;
   }
 
-  public static getReactions(
-    id: number
-  ): Promise<AxiosResponse<NewsReaction[], any>> {
-    return axios.get(`${this.API_ENDPOINT}/news/news-reactions/${id}`);
+  public static async getReactions(id: number): Promise<GetReactionsResponse> {
+    const res = await axios.get(
+      `${this.API_ENDPOINT}/news/news-reactions/${id}`
+    );
+    return res.data;
   }
 }

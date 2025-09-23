@@ -36,13 +36,14 @@ export function ReactionArea({ news, reactionCount }: Props) {
     BirdsEyeApi.getReactions(news.id)
       .then((result) => {
         setIsLoading(false);
-        result.data = result.data.map((r) => {
+        let reactions = result.reactions;
+        reactions = reactions.map((r) => {
           r.scrapedDateTime = new Date(
             Date.parse(r.scrapedDateTime)
           ).toLocaleString();
           return r;
         });
-        setReactions(result.data);
+        setReactions(reactions);
       })
       .catch((e) => {
         setIsLoading(false);
