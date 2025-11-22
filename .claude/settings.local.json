@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm outdated:*)",
+      "Bash(npm install:*)",
+      "Bash(npm view:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run build:*)",
+      "Bash(sudo rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
