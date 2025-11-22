@@ -6,7 +6,8 @@
       "Bash(npm view:*)",
       "Bash(npm uninstall:*)",
       "Bash(npm run build:*)",
-      "Bash(sudo rm:*)"
+      "Bash(sudo rm:*)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []

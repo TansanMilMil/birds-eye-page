@@ -1,0 +1,63 @@
+name: Reusable Invalidate CloudFront
+
+on:
+  workflow_call:
+    inputs:
+      distribution-id:
+        description: 'CloudFront distribution ID'
+        required: false
+        type: string
+        default: ''
+      paths:
+        description: 'Paths to invalidate (space-separated, e.g., "/* /images/*")'
+        required: false
+        type: string
+        default: '/*'
+      aws-region:
+        description: 'AWS region'
+        required: false
+        type: string
+        default: 'ap-northeast-1'
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        description: 'AWS Access Key ID'
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: 'AWS Secret Access Key'
+        required: true
+      CLOUDFRONT_DISTRIBUTION_ID:
+        description: 'CloudFront distribution ID'
+        required: false
+
+jobs:
+  invalidate-cache:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ inputs.aws-region }}
+      AWS_PAGER: ""
+      DISTRIBUTION_ID: ${{ inputs.distribution-id != '' && inputs.distribution-id || secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Compose
+        run: docker compose up -d
+
+      - name: Validate distribution ID
+        run: |
+          if [ -z "${{ env.DISTRIBUTION_ID }}" ]; then
+            echo "Error: CloudFront distribution ID is not set"
+            exit 1
+          fi
+
+      - name: Invalidate CloudFront cache
+        run: |
+          docker compose exec -T node aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DISTRIBUTION_ID }} \
+            --paths ${{ inputs.paths }}
+
+      - name: Cleanup
+        run: docker compose down
+        if: always()

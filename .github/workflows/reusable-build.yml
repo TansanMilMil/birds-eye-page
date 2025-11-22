@@ -1,0 +1,66 @@
+name: Reusable Build
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version to use'
+        required: false
+        type: string
+        default: 'latest'
+      artifact-name:
+        description: 'Name of the build artifact'
+        required: false
+        type: string
+        default: 'build.tgz'
+      build-command:
+        description: 'Command to run for building'
+        required: false
+        type: string
+        default: 'npm run build'
+      build-dir:
+        description: 'Build directory to archive'
+        required: false
+        type: string
+        default: './build'
+      artifact-retention-days:
+        description: 'Days to retain the artifact'
+        required: false
+        type: number
+        default: 1
+    outputs:
+      artifact-name:
+        description: 'Name of the uploaded artifact'
+        value: ${{ jobs.build.outputs.artifact-name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.upload.outputs.artifact-name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Compose
+        run: docker compose up -d
+
+      - name: Install dependencies
+        run: docker compose exec -T node npm install
+
+      - name: Build application
+        run: |
+          docker compose exec -T node ${{ inputs.build-command }}
+          tar cvfz ./${{ inputs.artifact-name }} ${{ inputs.build-dir }}
+
+      - name: Upload build artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.artifact-name }}
+          retention-days: ${{ inputs.artifact-retention-days }}
+
+      - name: Cleanup
+        run: docker compose down
+        if: always()
