@@ -9,6 +9,11 @@ import ForestIcon from "@mui/icons-material/Forest";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import MosqueIcon from "@mui/icons-material/Mosque";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import WavesIcon from "@mui/icons-material/Waves";
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
+import ParkIcon from "@mui/icons-material/Park";
 
 export function ThemeColorSetting() {
   const dispatch = useDispatch();
@@ -43,6 +48,21 @@ export function ThemeColorSetting() {
         </IconButton>
         <IconButton onClick={() => changeTheme(MuiThemeNames.Sunny)}>
           <LightModeIcon />
+        </IconButton>
+        <IconButton onClick={() => changeTheme(MuiThemeNames.Night)}>
+          <NightsStayIcon />
+        </IconButton>
+        <IconButton onClick={() => changeTheme(MuiThemeNames.Sakura)}>
+          <LocalFloristIcon />
+        </IconButton>
+        <IconButton onClick={() => changeTheme(MuiThemeNames.Ocean)}>
+          <WavesIcon />
+        </IconButton>
+        <IconButton onClick={() => changeTheme(MuiThemeNames.Sunset)}>
+          <WbTwilightIcon />
+        </IconButton>
+        <IconButton onClick={() => changeTheme(MuiThemeNames.Forest)}>
+          <ParkIcon />
         </IconButton>
       </Box>
     </div>

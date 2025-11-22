@@ -1,5 +1,5 @@
 import { PaletteOptions } from "@mui/material";
-import { blue, deepOrange, orange, pink, purple, red, teal } from "@mui/material/colors";
+import { amber, blue, blueGrey, brown, cyan, deepOrange, green, indigo, lightBlue, orange, pink, purple, red, teal } from "@mui/material/colors";
 import { MuiThemeNames } from "./mui-theme-names";
 
 export class MuiTheme {
@@ -30,6 +30,41 @@ export class MuiTheme {
       themePalette: {
           primary: orange,
           secondary: blue,
+      },
+    },
+    {
+      themeName: MuiThemeNames.Night,
+      themePalette: {
+          primary: indigo,
+          secondary: blueGrey,
+      },
+    },
+    {
+      themeName: MuiThemeNames.Sakura,
+      themePalette: {
+          primary: pink,
+          secondary: purple,
+      },
+    },
+    {
+      themeName: MuiThemeNames.Ocean,
+      themePalette: {
+          primary: lightBlue,
+          secondary: cyan,
+      },
+    },
+    {
+      themeName: MuiThemeNames.Sunset,
+      themePalette: {
+          primary: deepOrange,
+          secondary: amber,
+      },
+    },
+    {
+      themeName: MuiThemeNames.Forest,
+      themePalette: {
+          primary: green,
+          secondary: brown,
       },
     },
   ];
