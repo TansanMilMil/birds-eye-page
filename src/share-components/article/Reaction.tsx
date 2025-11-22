@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styles from "./Reaction.module.css";
 import { NewsReaction } from "../../types/newsReaction";
 import reactStringReplace from "react-string-replace";
 import { Avatar, Box, Grow, Link } from "@mui/material";
@@ -55,8 +55,8 @@ export function Reaction({ reaction, newsTitle, index }: Props) {
   return (
     <div>
       <Grow in={true} style={{ transitionDelay: transitionDelay() }}>
-        <ReactionArea>
-          <Author>
+        <div className={styles.reactionArea}>
+          <div className={styles.author}>
             {(() => {
               switch (reaction.author) {
                 case "twitter user":
@@ -91,51 +91,17 @@ export function Reaction({ reaction, newsTitle, index }: Props) {
                 {reaction.author}
               </Link>
             </Box>
-          </Author>
-          <Comment>{changeTitleColor(reaction.comment, newsTitle)}</Comment>
+          </div>
+          <div className={styles.comment}>
+            {changeTitleColor(reaction.comment, newsTitle)}
+          </div>
           <Box sx={{ color: "secondary.main" }}>
-            <ScrapedDateTime>{reaction.scrapedDateTime}</ScrapedDateTime>
+            <div className={styles.scrapedDateTime}>
+              {reaction.scrapedDateTime}
+            </div>
           </Box>
-        </ReactionArea>
+        </div>
       </Grow>
     </div>
   );
 }
-
-const Author = styled.div`
-  color: #939393;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  margin: 0.3rem 0;
-  & a {
-    &:link {
-      text-decoration: none;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-    &:visited {
-      color: #aaa;
-    }
-  }
-`;
-
-const Comment = styled.div`
-  color: #242424;
-  padding: 0.3rem;
-  word-break: break-word;
-  font-size: 0.9rem;
-`;
-
-const ReactionArea = styled.div`
-  background-color: #f7f7f7;
-  margin: 0.3rem 0;
-  padding: 0.5rem 0.9rem;
-  border-radius: 0.4rem;
-`;
-
-const ScrapedDateTime = styled.div`
-  font-size: 0.9rem;
-  margin: 0.3rem 0;
-`;

@@ -6,7 +6,7 @@ import { BirdsEyeApi } from "../../api/birdsEyeApi";
 import { News } from "../../types/news";
 import { MainArticle } from "../../share-components/article/MainArticle";
 import { Masonry } from "@mui/lab";
-import styled from "styled-components";
+import styles from "./Trends.module.css";
 declare var Highcharts: any;
 
 export function Trends() {
@@ -79,7 +79,7 @@ export function Trends() {
   }
 
   return (
-    <Charts>
+    <div className={styles.charts}>
       <Box sx={{ maxWidth: "1200px", margin: "0 auto" }}>
         {hasError && <Alert severity="error">network error...</Alert>}
         {isLoading && (
@@ -102,55 +102,6 @@ export function Trends() {
           ))}
         </Masonry>
       </Box>
-    </Charts>
+    </div>
   );
 }
-
-const Charts = styled.div`
-  & .highcharts-figure,
-  .highcharts-data-table table {
-    min-width: 320px;
-    max-width: 800px;
-    margin: 1em auto;
-  }
-
-  & .highcharts-data-table table {
-    font-family: Verdana, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid #ebebeb;
-    margin: 10px auto;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-  }
-
-  & .highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
-  }
-
-  & .highcharts-data-table th {
-    font-weight: 600;
-    padding: 0.5em;
-  }
-
-  & .highcharts-data-table td,
-  .highcharts-data-table th,
-  .highcharts-data-table caption {
-    padding: 0.5em;
-  }
-
-  & .highcharts-data-table thead tr,
-  .highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
-  }
-
-  & .highcharts-data-table tr:hover {
-    background: #f1f7ff;
-  }
-
-  & svg.highcharts-root {
-    border-radius: 1rem;
-  }
-`;

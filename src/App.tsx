@@ -12,7 +12,7 @@ import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 import { Trends } from "./pages/trends/Trends";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styles from "./App.module.css";
 import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { MuiTheme } from "./mui-theme";
@@ -37,17 +37,17 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ backgroundColor: "primary.main" }}>
-        <AppBase>
-          <Title>
+        <div className={styles.appBase}>
+          <h1 className={styles.title}>
             <img src={title} alt="title" />
-          </Title>
+          </h1>
 
           <Routes>
             <Route path="/news" element={<TodayNews></TodayNews>} />
             <Route path="/trends" element={<Trends></Trends>} />
           </Routes>
 
-          <Credit>
+          <div className={styles.credit}>
             <div>
               ロゴは{" "}
               <a
@@ -58,7 +58,7 @@ export function App() {
               </a>{" "}
               ロゴメーカーさんに作られる
             </div>
-          </Credit>
+          </div>
 
           <BottomNavigation
             showLabels
@@ -86,27 +86,8 @@ export function App() {
               value="/trends"
             />
           </BottomNavigation>
-        </AppBase>
+        </div>
       </Box>
     </ThemeProvider>
   );
 }
-
-const AppBase = styled.div`
-  min-height: 100vh;
-  padding: 8px 8px 5rem 8px;
-`;
-
-const Title = styled.h1`
-  font-family: "Tempus Sans ITC";
-  color: #e7e7e7;
-  text-align: center;
-  font-weight: normal;
-  margin: 0;
-`;
-
-const Credit = styled.div`
-  font-size: 0.5rem;
-  text-align: center;
-  color: #ccc;
-`;

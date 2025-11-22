@@ -15,7 +15,7 @@ import {
   IconButton,
   Link,
 } from "@mui/material";
-import styled from "styled-components";
+import styles from "./ReactionArea.module.css";
 import { News } from "../../types/news";
 
 type Props = {
@@ -79,11 +79,11 @@ export function ReactionArea({ news, reactionCount }: Props) {
             aria-describedby="scroll-dialog-description"
           >
             <DialogTitle id="scroll-dialog-title">
-              <Title>
+              <div className={styles.title}>
                 <Link href={news.articleUrl} target="_blank" rel="noreferrer">
                   {news.title}
                 </Link>
-              </Title>
+              </div>
             </DialogTitle>
             <DialogContent dividers={true}>
               <div id="scroll-dialog-description" tabIndex={-1}>
@@ -112,14 +112,3 @@ export function ReactionArea({ news, reactionCount }: Props) {
     </div>
   );
 }
-
-const Title = styled.div`
-  & a {
-    &:link {
-      text-decoration: none;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;

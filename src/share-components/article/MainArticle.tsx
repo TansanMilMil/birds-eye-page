@@ -1,6 +1,6 @@
 import { News } from "../../types/news";
 import { Box, Chip, Link, Zoom } from "@mui/material";
-import styled from "styled-components";
+import styles from "./MainArticle.module.css";
 import { ReactionArea } from "./ReactionArea";
 
 type Props = {
@@ -19,15 +19,15 @@ export function MainArticle({ news, isDisplayReactions = false }: Props) {
   return (
     <div>
       <Zoom in={true} style={{ transitionDelay: transitionDelay() }}>
-        <Article>
+        <article className={styles.article}>
           {news.articleImageUrl && (
             <a href={news.articleUrl} target="_blank" rel="noreferrer">
-              <Image>
+              <div className={styles.image}>
                 <img src={news.articleImageUrl} alt="" />
-              </Image>
+              </div>
             </a>
           )}
-          <Title>
+          <div className={styles.title}>
             <Link
               href={news.articleUrl}
               target="_blank"
@@ -36,10 +36,10 @@ export function MainArticle({ news, isDisplayReactions = false }: Props) {
             >
               {news.title}
             </Link>
-          </Title>
-          <Description>{news.summarizedText}</Description>
+          </div>
+          <div className={styles.description}>{news.summarizedText}</div>
           <Box sx={{ color: "secondary.main" }}>
-            <ScrapedDateTime>{news.scrapedDateTime}</ScrapedDateTime>
+            <div className={styles.scrapedDateTime}>{news.scrapedDateTime}</div>
           </Box>
           {news.sourceBy && (
             <Chip label={news.sourceBy} size="small" onClick={clickSourceBy} />
@@ -50,58 +50,8 @@ export function MainArticle({ news, isDisplayReactions = false }: Props) {
               reactionCount={news.reactionCount}
             ></ReactionArea>
           )}
-        </Article>
+        </article>
       </Zoom>
     </div>
   );
 }
-
-const Article = styled.article`
-  background-color: #f5f5f5;
-  padding: 1.6rem 2.2rem;
-  border-radius: 2.8rem;
-  border-color: #a7a750;
-  & a {
-    &:link {
-      text-decoration: none;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-    &:visited {
-      color: #aaa;
-    }
-  }
-`;
-
-const Title = styled.div`
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0.3rem 0;
-`;
-
-const Description = styled.div`
-  font-size: 0.9rem;
-  color: #333333;
-  overflow: hidden;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 1.5rem;
-`;
-
-const ScrapedDateTime = styled.div`
-  font-size: 0.9rem;
-  margin: 0.3rem 0;
-`;
-
-const Image = styled.div`
-  height: 10rem;
-  margin: 0.4rem 0;
-
-  & > img {
-    object-fit: cover;
-    height: 10rem;
-    width: 100%;
-    border-radius: 0.3rem;
-  }
-`;

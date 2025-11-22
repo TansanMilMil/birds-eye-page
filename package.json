@@ -19,11 +19,9 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.6",
     "react-string-replace": "^1.1.1",
-    "styled-components": "^6.1.19",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.36",
     "@vitejs/plugin-react": "^5.1.1",
     "vite": "^6.4.1",
     "vite-tsconfig-paths": "^5.1.4"
